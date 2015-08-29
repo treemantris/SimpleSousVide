@@ -1,4 +1,3 @@
-/* We start by including the library */
 #include "LedControl.h"
 #include <OneWire.h>
 #include <DallasTemperature.h>
@@ -15,19 +14,25 @@ DallasTemperature sensors(&oneWire);
 #define buttonUp 9
 #define buttonDown 8
 #define cookerPin 7
+
+// 12, 11, 10 correspond to pins DIN, CLK, and CS on the LED board
 LedControl lc1=LedControl(12,11,10,1); 
 
 
 void setup() {
-    //wake up the MAX72XX from power-saving mode 
+   //wake up the MAX72XX from power-saving mode 
    lc1.shutdown(0,false);
    //set a medium brightness for the Leds
-     lc1.setIntensity(0,0);
-   
+   lc1.setIntensity(0,0);
+   //clear the display
    lc1.clearDisplay(0);
    
+   //we use input pullup mode so that no external resistors are required for the switches
+   //when the switches are pressed, the digital read becomes 0
    pinMode(buttonUp, INPUT_PULLUP);
    pinMode(buttonDown, INPUT_PULLUP);
+   
+   //this is the pin we connect to the relay
    pinMode(cookerPin, OUTPUT);
 }
 
@@ -55,6 +60,7 @@ void loop() {
   delay(100);
 }
 
+// prints number on first block of the display
 void printNumber(float number) {
   lc1.setDigit(0, 7, (byte) number / 10, false);
   lc1.setDigit(0, 6, (byte) number % 10, true);
@@ -62,6 +68,7 @@ void printNumber(float number) {
   lc1.setDigit(0, 4, (byte) ((int) (number * 100) % 10), false);
 }
 
+// prints number on second block of display
 void printNumber2(float number) {
   lc1.setDigit(0, 3, (byte) number / 10, false);
   lc1.setDigit(0, 2, (byte) number % 10, true);
@@ -72,6 +79,8 @@ void printNumber2(float number) {
 void getAndPrintTemperature() {
   sensors.requestTemperatures();
   temp = sensors.getTempCByIndex(0);
+  
+  // was occasionally getting negative readings hence this check
   if (temp < 0)
     temp = -1 * temp;
   

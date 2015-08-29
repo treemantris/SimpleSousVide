@@ -1,0 +1,1 @@
+This project contains the source code and diagram for a simple Sous-Vide cooker I built using an Arduino UNO, cheap electronic components, and a slow cooker.

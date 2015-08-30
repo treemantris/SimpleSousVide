@@ -41,7 +41,6 @@ int tempUp;
 int tempDown;
 float temp = 0.0;
 void loop() {
-//  delay(10000);
   printNumber(desiredTemperature);
   getAndPrintTemperature();
   tempUp = digitalRead(buttonUp);

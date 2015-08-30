@@ -1,1 +1,3 @@
-This project contains the source code and diagram for a simple Sous-Vide cooker I built using an Arduino UNO, cheap electronic components, and a slow cooker.
+This project contains the source code and wiring diagram for a simple Sous-Vide cooker I built using an Arduino UNO, some cheap electronic components, and a slow cooker.
+
+It is based on [this project](https://github.com/egiust/SousVideAdaptativeArduino) but with simplified code, check out [my blog post](http://www.tristanpollitt.com/2015/08/22/building-a-simple-sous-vide-cooker-using-arduino/) for more info.
